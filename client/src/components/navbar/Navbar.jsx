@@ -13,11 +13,10 @@ import {
 } from "../../slices/homepageSlice";
 import FullPageLoader from "../loaders/FullPageLoader";
 import LoginErrorPage from "../Errors/LoginErrorPage";
-const userName = localStorage.getItem("userName");
 const navLinksStyles =
   "text-base sm:text-2xl text-gray-700 cursor-pointer hover:text-gray-600 focus:text-black active:text-black";
 const Navbar = () => {
-  const { loginStatus, isLoginPending, isLoginStatusError, profilePhoto } =
+  const { loginStatus, isLoginPending, isLoginStatusError, profilePhoto, userName } =
     useSelector((state) => state.authSlice);
   const [profileWindow, setProfileWindow] = useState("hidden");
   const expandProfile = (e) => {
@@ -88,6 +87,7 @@ const Navbar = () => {
             src={profilePhoto || "./useravatar.png"}
             alt="userImg"
             loading="lazy"
+            referrerPolicy="no-referrer"
             className="w-full h-full rounded-full cursor-pointer"
             onClick={expandProfile}
           />
@@ -107,6 +107,7 @@ const Navbar = () => {
                 src={profilePhoto || "./useravatar.png"}
                 alt="user-img"
                 loading="lazy"
+                referrerPolicy="no-referrer"
                 className="w-full h-full rounded-full cursor-pointer"
               />
             </div>

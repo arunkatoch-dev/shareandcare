@@ -12,6 +12,7 @@ const initialState = {
   isLoginError: false,
   isLogoutError: false,
   isLogoutPending: false,
+  userName: "",
   userEmail: "",
   profilePhoto: "",
 };
@@ -78,9 +79,7 @@ const authSlice = createSlice({
         state.loginStatus = true;
         state.profilePhoto = profilePhoto;
         state.userEmail = email;
-        localStorage.setItem("userName", userName);
-        localStorage.setItem("profilePhoto", profilePhoto);
-        localStorage.setItem("userEmail", email);
+        state.userName = userName;
       }
     });
 
@@ -98,9 +97,6 @@ const authSlice = createSlice({
       if (action.payload.msg === "logged out") {
         state.loginStatus = false;
         state.isLogoutPending = false;
-        localStorage.removeItem("userName");
-        localStorage.removeItem("profilePhoto");
-        localStorage.removeItem("userEmail");
         window.location.href = `${frontendURL}/login`;
       }
       if (action.payload.msg === "error") {

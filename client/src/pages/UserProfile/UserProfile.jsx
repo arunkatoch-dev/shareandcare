@@ -27,8 +27,6 @@ const ProfileMenu = lazy(() => import("./Menus/ProfileMenu"));
 import UserProfileNav from "./NavBar/UserProfileNav";
 import { checkUserLoginStatus } from "../../slices/authSlice";
 import SpinnerCircularLoader from "../../components/loaders/SpinnerCircularLoader";
-const userName = localStorage.getItem("userName");
-const userEmail = localStorage.getItem("userEmail");
 const menusActiveState =
   "sm:w-[25%] w-full h-full sm:text-base text-sm cursor-pointer hover:text-gray-800 border-b-2 border-b-[#C6553B] flex items-center justify-center";
 const menusNonActiveState =
@@ -40,7 +38,7 @@ const UserProfile = () => {
     answersByYouDisplay,
     postsByYouDisplay,
   } = useSelector((state) => state.homepageSlice);
-  const { profilePhoto } = useSelector((state) => state.authSlice);
+  const { profilePhoto, userName, userEmail } = useSelector((state) => state.authSlice);
   const {
     userQuestionsMenuData,
     deleteDialogWindow,
@@ -81,6 +79,7 @@ const UserProfile = () => {
               <img
                 src={profilePhoto || "./useravatar.png"}
                 alt="user profile img"
+                referrerPolicy="no-referrer"
                 className="w-full h-full rounded-full"
               />
             </div>
