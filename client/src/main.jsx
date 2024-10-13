@@ -18,7 +18,6 @@ const QuestionsNavMenu = lazy(() =>
 const PostsNavMenu = lazy(() =>
   import("./pages/PostsNavMenu/PostsNavMenu.jsx")
 );
-const About = lazy(() => import("./pages/About/About.jsx"));
 const Login = lazy(() => import("./pages/Login/Login.jsx"));
 const Signup = lazy(() => import("./pages/Signup/Signup.jsx"));
 const Home = lazy(() => import("./pages/Home/Home.jsx"));
@@ -71,14 +70,6 @@ const router = createBrowserRouter(
         element={
           <Suspense fallback={<SpinnerCircularLoader />}>
             <UserProfile />
-          </Suspense>
-        }
-      />
-      <Route
-        path="/about"
-        element={
-          <Suspense fallback={<SpinnerCircularLoader />}>
-            <About />
           </Suspense>
         }
       />

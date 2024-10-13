@@ -24,7 +24,7 @@ const DisplayUserProfileFeeds = ({
       </div>
 
       <div className="w-full relative">
-        {answers.length >= 1 && (
+        {answers?.length >= 1 && (
           <>
             <div
               className={

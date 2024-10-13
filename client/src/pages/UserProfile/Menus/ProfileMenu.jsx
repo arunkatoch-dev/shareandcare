@@ -11,10 +11,12 @@ const DisplayUserProfileFeeds = lazy(() =>
 import BounceCircular from "../../../components/loaders/BounceCircular";
 import EndMsg from "../../Home/MainBody/EndMsg/EndMsg";
 import InfiniteScroll from "react-infinite-scroll-component";
-const userEmail = localStorage.getItem("userEmail");
+
 
 const ProfileMenu = () => {
   const dispatch = useDispatch();
+  const { userEmail } =
+    useSelector((state) => state.authSlice);
   const {
     isProfileMenuLoading,
     hasMoreProfileMenuData,

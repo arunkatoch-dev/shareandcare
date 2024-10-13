@@ -8,9 +8,11 @@ import { fetchUserPostsMenuFeed } from "../../../slices/userProfileSlice";
 const DisplayUserPostsMenu = lazy(() =>
   import("./MenuComponents/DisplayUserPostsMenu")
 );
-const userEmail = localStorage.getItem("userEmail");
+
 const PostsMenu = () => {
   const dispatch = useDispatch();
+  const { userEmail } =
+  useSelector((state) => state.authSlice);
   const {
     hasMorePostsMenuData,
     defaultPostsMenuPage,

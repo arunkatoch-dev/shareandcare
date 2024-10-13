@@ -8,7 +8,7 @@ const DisplayUserAnswersMenu = lazy(() =>
 );
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserAnswersMenuFeed } from "../../../slices/userProfileSlice";
-const userEmail = localStorage.getItem("userEmail");
+
 
 const AnswersMenu = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,8 @@ const AnswersMenu = () => {
     defaultAnswersMenuPage,
     userAnswersMenuData,
   } = useSelector((state) => state.userProfileSlice);
-
+  const { userEmail } =
+    useSelector((state) => state.authSlice);
   const fetchAnswersData = () => {
     dispatch(
       fetchUserAnswersMenuFeed({

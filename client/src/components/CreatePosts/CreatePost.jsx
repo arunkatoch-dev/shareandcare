@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   createPost,
   togglePostsWindowReducer,
@@ -9,6 +9,8 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { createPostValidation } from "../../schemas/QuesNdPostValidationSchema";
 
 const CreatePost = () => {
+  const { userName, userEmail } =
+  useSelector((state) => state.authSlice);
   const [createPostVal, setCreatePostVal] = useState("");
   const dispatch = useDispatch();
   const changeInputFunc = (e) => {
@@ -34,8 +36,6 @@ const CreatePost = () => {
           let month = d.getMonth() + 1;
           let year = d.getFullYear();
           let fullDate = `${day}-${month}-${year}`;
-          const userName = localStorage.getItem("userName");
-          const userEmail = localStorage.getItem("userEmail");
           dispatch(
             createPost({
               post: values.createPost,

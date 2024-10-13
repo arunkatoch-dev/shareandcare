@@ -27,10 +27,12 @@ const ProfileMenu = lazy(() => import("./Menus/ProfileMenu"));
 import UserProfileNav from "./NavBar/UserProfileNav";
 import { checkUserLoginStatus } from "../../slices/authSlice";
 import SpinnerCircularLoader from "../../components/loaders/SpinnerCircularLoader";
+import { fetchUserAnswersMenuFeed, fetchUserPostsMenuFeed, fetchUserProfileMenuFeed, fetchUserQuestionMenuFeed } from "../../slices/userProfileSlice";
 const menusActiveState =
   "sm:w-[25%] w-full h-full sm:text-base text-sm cursor-pointer hover:text-gray-800 border-b-2 border-b-[#C6553B] flex items-center justify-center";
 const menusNonActiveState =
   "sm:w-[25%]w-full h-full  sm:text-base text-sm cursor-pointer hover:text-gray-800   flex items-center justify-center";
+
 const UserProfile = () => {
   const {
     profileDisplay,
@@ -44,9 +46,13 @@ const UserProfile = () => {
     deleteDialogWindow,
     editDialogWindow,
     deleteAnswerDialogWindow,
+    defaultQuestionsMenuPage,
+    defaultAnswersMenuPage,
+    defaultPostsMenuPage,
     editAnswerDialogWindow,
     deletePostDialogWindow,
     editPostDialogWindow,
+    defaultProfileMenuPage
   } = useSelector((state) => state.userProfileSlice);
 
   const dispatch = useDispatch();
@@ -65,6 +71,43 @@ const UserProfile = () => {
       })
     );
   };
+  const fetchProfileMenuFeeds = (e) => {
+    e.preventDefault()
+    dispatch(
+      fetchUserProfileMenuFeed({
+        defaultPage: defaultProfileMenuPage,
+        userEmail: userEmail,
+      })
+    );
+  }
+  const fetchQuestionsMenuFeeds = (e) => {
+    e.preventDefault()
+    dispatch(
+      fetchUserQuestionMenuFeed({
+        defaultPage: defaultQuestionsMenuPage,
+        userEmail: userEmail,
+      })
+    );
+  }
+  const fetchAnswersMenuFeeds = (e) => {
+    e.preventDefault()
+    dispatch(
+      fetchUserAnswersMenuFeed({
+        defaultPage: defaultAnswersMenuPage,
+        userEmail: userEmail,
+      })
+    );
+  }
+  const fetchPostsMenuFeeds = (e) => {
+    e.preventDefault()
+    dispatch(
+      fetchUserPostsMenuFeed({
+        defaultPage: defaultPostsMenuPage,
+        userEmail: userEmail,
+      })
+    );
+  }
+
   useEffect(() => {
     dispatch(checkUserLoginStatus());
   }, []);
@@ -94,6 +137,7 @@ const UserProfile = () => {
                 profileDisplay ? menusActiveState : menusNonActiveState
               }
               onClick={() => onMenusClick(true, false, false, false)}
+              onTouchStart={fetchProfileMenuFeeds}
             >
               Profile
             </div>
@@ -103,6 +147,7 @@ const UserProfile = () => {
                 questionsByYouDisplay ? menusActiveState : menusNonActiveState
               }
               onClick={() => onMenusClick(false, true, false, false)}
+              onTouchStart={fetchQuestionsMenuFeeds}
             >
               Questions by you ({userQuestionsMenuData?.length})
             </div>
@@ -112,6 +157,7 @@ const UserProfile = () => {
                 answersByYouDisplay ? menusActiveState : menusNonActiveState
               }
               onClick={() => onMenusClick(false, false, true, false)}
+              onTouchStart={fetchAnswersMenuFeeds}
             >
               Answers by you
             </div>
@@ -121,6 +167,7 @@ const UserProfile = () => {
                 postsByYouDisplay ? menusActiveState : menusNonActiveState
               }
               onClick={() => onMenusClick(false, false, false, true)}
+              onTouchStart={fetchPostsMenuFeeds}
             >
               Posts by you
             </div>
@@ -180,6 +227,7 @@ const UserProfile = () => {
       )}
     </>
   );
-};
+}
+
 
 export default UserProfile;

@@ -25,7 +25,6 @@ const MainBody = () => {
   const fetchMoreData = () => {
     dispatch(fetchHomepageFeed({ defaultPage }));
   };
-
   return (
     <section className="sm:w-1/2 w-full flex p-2 sm:p-0 sm:mx-auto flex-col min-h-screen items-center">
       <Suspense fallback={<SpinnerCircularLoader />}>
@@ -66,7 +65,7 @@ const MainBody = () => {
                 {post && (
                   <Suspense fallback={<SpinnerCircularLoader />}>
                     <DisplayPostsFeed
-                      id={post ? _id : null}
+                      id={post ? post._id : null}
                       post={post}
                       postBy={postBy}
                       postOn={postOn}

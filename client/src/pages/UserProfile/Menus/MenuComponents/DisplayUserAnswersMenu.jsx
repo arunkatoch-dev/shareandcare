@@ -2,14 +2,14 @@
 import { useState } from "react";
 import { BsPencilSquare } from "react-icons/bs";
 import { MdDelete } from "react-icons/md";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   deleteAnswerDetails,
   editAnswerDetails,
   toggleAnswerEditDialogbox,
   toggleDeleteAnswerDialogBox,
 } from "../../../../slices/userProfileSlice";
-const userEmail = localStorage.getItem("userEmail");
+
 const DisplayUserAnswersMenu = ({
   id,
   question,
@@ -22,6 +22,8 @@ const DisplayUserAnswersMenu = ({
     e.preventDefault();
     setShowMoreAnswers((showAllAnswers) => !showAllAnswers);
   };
+  const { userEmail } =
+    useSelector((state) => state.authSlice);
   const dispatch = useDispatch();
 
   const openDeletePopUp = (answer, answerId) => {
@@ -57,7 +59,7 @@ const DisplayUserAnswersMenu = ({
       </div>
 
       <div className="w-full relative">
-        {answers.length >= 1 && (
+        {answers?.length >= 1 && (
           <>
             <div
               className={
@@ -70,18 +72,18 @@ const DisplayUserAnswersMenu = ({
               </div>
               <div className="flex flex-col gap-1 justify-end items-end p-2">
                 <span className="text-sm font-semibold text-gray-900">
-                  {answers[0].answerBy}
+                  {answers[0]?.answerBy}
                 </span>
                 <span className="text-xs font-light">
-                  {answers[0].answerOn}
+                  {answers[0]?.answerOn}
                 </span>
-                {answers[0].answerByUserId === userEmail && (
+                {answers[0]?.answerByUserId === userEmail && (
                   <div className="flex gap-3">
                     <div
                       className="flex gap-2 items-center px-4 py-2 border cursor-pointer shadow-md hover:text-gray-800 border-gray-700 text-gray-700"
                       onClick={() => {
-                        const currAnsUserId = answers[0]._id;
-                        const currAns = answers[0].answer;
+                        const currAnsUserId = answers[0]?._id;
+                        const currAns = answers[0]?.answer;
                         openEditPopUp(currAnsUserId, currAns);
                       }}
                     >
@@ -90,8 +92,8 @@ const DisplayUserAnswersMenu = ({
                     <div
                       className="flex gap-2 items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white cursor-pointer"
                       onClick={() => {
-                        const currAns = answers[0].answer;
-                        const currAnsUserId = answers[0]._id;
+                        const currAns = answers[0]?.answer;
+                        const currAnsUserId = answers[0]?._id;
 
                         openDeletePopUp(currAns, currAnsUserId);
                       }}

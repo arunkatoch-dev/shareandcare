@@ -8,7 +8,8 @@ import { addAnswerValidation } from "../../../schemas/QuesNdPostValidationSchema
 
 const AddAnswerPopup = () => {
   const dispatch = useDispatch();
-
+  const { userName, userEmail } =
+    useSelector((state) => state.authSlice);
   const questionId = useSelector((state) => state.homepageSlice.questionId);
   const closePopUpWindow = (e) => {
     e.preventDefault();
@@ -30,8 +31,7 @@ const AddAnswerPopup = () => {
               let month = d.getMonth() + 1;
               let year = d.getFullYear();
               let fullDate = `${day}-${month}-${year}`;
-              const userName = localStorage.getItem("userName");
-              const userEmail = localStorage.getItem("userEmail");
+
               dispatch(
                 addNewAnswer({
                   id: questionId,

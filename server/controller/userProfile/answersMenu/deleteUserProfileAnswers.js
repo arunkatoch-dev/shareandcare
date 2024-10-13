@@ -4,7 +4,6 @@ const Question = require("../../../models/questionsSchema");
 const deleteUserProfileAnswers = async (req, res) => {
   try {
     const { _id, answerId } = req.params;
-
     if (!(_id && answerId)) {
       return res.json({
         msg: "failed",
@@ -14,7 +13,7 @@ const deleteUserProfileAnswers = async (req, res) => {
 
     const deleteAnswer = await Question.updateOne(
       { _id },
-      { $pull: { answers: { _id: answerId } } }
+      { $pull: { answers: { answerByUserId: answerId } } }
     );
     if (deleteAnswer) {
       res.json({ msg: "success", details: "answer deletion successfull" });

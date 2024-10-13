@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addQuestion,
   togglePostsWindowReducer,
@@ -7,6 +7,8 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { addQuestionValidation } from "../../schemas/QuesNdPostValidationSchema";
 
 const AddQuestion = () => {
+  const { userName, userEmail } =
+    useSelector((state) => state.authSlice);
   const dispatch = useDispatch();
   const onCancelHandler = (e) => {
     e.preventDefault();
@@ -25,8 +27,6 @@ const AddQuestion = () => {
           let month = d.getMonth() + 1;
           let year = d.getFullYear();
           let fullDate = `${day}-${month}-${year}`;
-          const userName = localStorage.getItem("userName");
-          const userEmail = localStorage.getItem("userEmail");
 
           dispatch(
             addQuestion({

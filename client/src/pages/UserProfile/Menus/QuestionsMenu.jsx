@@ -8,10 +8,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUserQuestionMenuFeed } from "../../../slices/userProfileSlice";
 import BounceCircular from "../../../components/loaders/BounceCircular";
 import EndMsg from "../../Home/MainBody/EndMsg/EndMsg";
-const userEmail = localStorage.getItem("userEmail");
+
 
 const QuestionsMenu = () => {
   const dispatch = useDispatch();
+  const { userEmail } =
+    useSelector((state) => state.authSlice);
   const {
     isQuestionsMenuLoading,
     hasMoreQuestionsMenuData,
